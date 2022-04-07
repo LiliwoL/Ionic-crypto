@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Cours des crypto monnaies</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+    <ion-item *ngFor="let crypto of cryptoRates">
+      <ion-label>
+        <h2>{{crypto.symbol}}</h2>
+        <h3>{{crypto.rate}}</h3>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
