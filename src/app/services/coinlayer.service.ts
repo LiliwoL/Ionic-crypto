@@ -20,30 +20,43 @@ export class CryptoRates {
 })
 export class CoinlayerService {
 
-  endpoint = 'http://api.coinlayer.com/api/live?access_key=799c41d08a8fa1645a56ae2a953df09f&target=EUR&symbols=BTC,ETH';
+  // endPoint
+  endpoint = 'http://api.coinlayer.com/api/live?access_key=799c41d08a8fa1645a56ae2a953df09f&target=EUR';
 
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders( { 'Content-Type': 'application/json' })
   };
 
-  constructor(private httpClient: HttpClient) { }
+  // Injection de dép.
+  constructor( private httpClient: HttpClient ) {}
 
-  getCryptoRates(): Observable<CryptoRates> {
+  // Methode d'appel
+  getCryptoRates(): Observable<CryptoRates>
+  {
     return this.httpClient
-      .get<CryptoRates>( this.endpoint )
-      .pipe(retry(1), catchError(this.processError));
+    .get<CryptoRates>( this.endpoint )
+    .pipe(
+      retry(1),
+      catchError(this.processError)
+    )
   }
 
-  processError(err: any) {
+  processError(err: any)
+  {
     let message = '';
-    if (err.error instanceof ErrorEvent) {
+
+    if (err.error instanceof ErrorEvent)
+    {
       message = err.error.message;
     } else {
       message = `Error Code: ${err.status}\nMessage: ${err.message}`;
     }
+
     console.log(message);
-    return throwError(() => {
-      message;
-    });
-}
+    return throwError(
+      () => {
+        message;
+      }
+    );
+  }
 }
